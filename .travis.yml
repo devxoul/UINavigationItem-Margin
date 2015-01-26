@@ -1,0 +1,4 @@
+language: objective-c
+osx_image: xcode611
+script:
+    - xctool -scheme 'UINavigationItem+Margin' -sdk iphonesimulator CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO test
