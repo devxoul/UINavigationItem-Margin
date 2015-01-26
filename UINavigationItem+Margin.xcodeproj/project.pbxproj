@@ -8,20 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		0344E2FC1A76497D0099CB48 /* UINavigationItem+Margin.h in Headers */ = {isa = PBXBuildFile; fileRef = 0344E2FB1A76497D0099CB48 /* UINavigationItem+Margin.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0344E3021A76497D0099CB48 /* UINavigationItem_Margin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0344E2F61A76497D0099CB48 /* UINavigationItem_Margin.framework */; };
 		0344E3091A76497D0099CB48 /* UINavigationItem_MarginTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0344E3081A76497D0099CB48 /* UINavigationItem_MarginTests.m */; };
 		0344E3131A7649CE0099CB48 /* UINavigationItem+Margin.m in Sources */ = {isa = PBXBuildFile; fileRef = 0344E3121A7649CE0099CB48 /* UINavigationItem+Margin.m */; };
+		0344E3171A7652820099CB48 /* UINavigationItem+Margin.m in Sources */ = {isa = PBXBuildFile; fileRef = 0344E3121A7649CE0099CB48 /* UINavigationItem+Margin.m */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		0344E3031A76497D0099CB48 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0344E2ED1A76497D0099CB48 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 0344E2F51A76497D0099CB48;
-			remoteInfo = "UINavigationItem+Margin";
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		0344E2F61A76497D0099CB48 /* UINavigationItem_Margin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UINavigationItem_Margin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -45,7 +35,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0344E3021A76497D0099CB48 /* UINavigationItem_Margin.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,7 +137,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				0344E3041A76497D0099CB48 /* PBXTargetDependency */,
 			);
 			name = "UINavigationItem+MarginTests";
 			productName = "UINavigationItem+MarginTests";
@@ -220,19 +208,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0344E3171A7652820099CB48 /* UINavigationItem+Margin.m in Sources */,
 				0344E3091A76497D0099CB48 /* UINavigationItem_MarginTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		0344E3041A76497D0099CB48 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 0344E2F51A76497D0099CB48 /* UINavigationItem+Margin */;
-			targetProxy = 0344E3031A76497D0099CB48 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		0344E30A1A76497D0099CB48 /* Debug */ = {
@@ -328,6 +309,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "UINavigationItem+Margin/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = UINavigationItem_Margin;
 				SKIP_INSTALL = YES;
@@ -343,6 +325,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "UINavigationItem+Margin/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = UINavigationItem_Margin;
 				SKIP_INSTALL = YES;
