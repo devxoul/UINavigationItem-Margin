@@ -2,6 +2,7 @@ UINavigationItem+Margin
 =======================
 
 [![Build Status](https://travis-ci.org/devxoul/UINavigationItem-Margin.svg?branch=master)](https://travis-ci.org/devxoul/UINavigationItem-Margin)
+[![CocoaPods](http://img.shields.io/cocoapods/v/UINavigationItem+Margin.svg?style=flat)](http://cocoapods.org/?q=name%3AUINavigationItem%2BMargin%20author%3Adevxoul)
 
 Margin for UINavigationItem.
 
