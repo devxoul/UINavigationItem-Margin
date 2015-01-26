@@ -129,7 +129,11 @@
 
 - (void)sj_setLeftBarButtonItem:(UIBarButtonItem *)item animated:(BOOL)animated
 {
-    [self setLeftBarButtonItems:@[item] animated:animated];
+    if (!item) {
+        [self setLeftBarButtonItems:nil animated:animated];
+    } else {
+        [self setLeftBarButtonItems:@[item] animated:animated];
+    }
 }
 
 - (NSArray *)sj_leftBarButtonItems
@@ -139,8 +143,13 @@
 
 - (void)sj_setLeftBarButtonItems:(NSArray *)items animated:(BOOL)animated
 {
-    [self sj_setLeftItems:items];
-    [self sj_setLeftBarButtonItems:[@[[self.class spacer]] arrayByAddingObjectsFromArray:items] animated:animated];
+    if (items.count) {
+        [self sj_setLeftItems:items];
+        [self sj_setLeftBarButtonItems:[@[[self.class spacer]] arrayByAddingObjectsFromArray:items] animated:animated];
+    } else {
+        [self sj_setLeftItems:nil];
+        [self sj_setLeftBarButtonItem:nil animated:animated];
+    }
 }
 
 
@@ -166,7 +175,11 @@
 
 - (void)sj_setRightBarButtonItem:(UIBarButtonItem *)item animated:(BOOL)animated
 {
-    [self setRightBarButtonItems:@[item] animated:animated];
+    if (!item) {
+        [self setRightBarButtonItems:nil animated:animated];
+    } else {
+        [self setRightBarButtonItems:@[item] animated:animated];
+    }
 }
 
 - (NSArray *)sj_rightBarButtonItems
@@ -176,8 +189,13 @@
 
 - (void)sj_setRightBarButtonItems:(NSArray *)items animated:(BOOL)animated
 {
-    [self sj_setRightItems:items];
-    [self sj_setRightBarButtonItems:[@[[self.class spacer]] arrayByAddingObjectsFromArray:items] animated:animated];
+    if (items.count) {
+        [self sj_setRightItems:items];
+        [self sj_setRightBarButtonItems:[@[[self.class spacer]] arrayByAddingObjectsFromArray:items] animated:animated];
+    } else {
+        [self sj_setRightItems:nil];
+        [self sj_setRightBarButtonItems:nil animated:animated];
+    }
 }
 
 @end

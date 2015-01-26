@@ -106,6 +106,18 @@
     XCTAssertEqual(self.viewController.navigationItem.leftBarButtonItems[0], self.editButton);
 }
 
+- (void)testLeftSetNil
+{
+    self.viewController.navigationItem.leftBarButtonItem = nil;
+    XCTAssertNil(self.viewController.navigationItem.leftBarButtonItem);
+}
+
+- (void)testLeftSetEmptyItems
+{
+    self.viewController.navigationItem.leftBarButtonItems = @[];
+    XCTAssertNil(self.viewController.navigationItem.leftBarButtonItem);
+}
+
 
 #pragma mark - Right
 
@@ -139,6 +151,18 @@
 {
     self.viewController.navigationItem.rightBarButtonItems = @[self.editButton, self.doneButton];
     XCTAssertEqual(self.viewController.navigationItem.rightBarButtonItems[0], self.editButton);
+}
+
+- (void)testRightSetNil
+{
+    self.viewController.navigationItem.rightBarButtonItem = nil;
+    XCTAssertNil(self.viewController.navigationItem.rightBarButtonItem);
+}
+
+- (void)testRightSetEmptyItems
+{
+    self.viewController.navigationItem.rightBarButtonItems = @[];
+    XCTAssertNil(self.viewController.navigationItem.rightBarButtonItem);
 }
 
 @end
