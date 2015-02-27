@@ -28,11 +28,13 @@
 
 @interface UINavigationItem_MarginTests : XCTestCase
 
-@property (nonatomic, strong) UINavigationController *navigationController;
+@property (nonatomic, strong) UIWindow *window;
 @property (nonatomic, strong) UIViewController *viewController;
+@property (nonatomic, strong) UINavigationController *navigationController;
 
 @property (nonatomic, strong) UIBarButtonItem *editButton;
 @property (nonatomic, strong) UIBarButtonItem *doneButton;
+@property (nonatomic, strong) UIBarButtonItem *customButton;
 
 @end
 
@@ -45,42 +47,52 @@
     self.viewController = [[UIViewController alloc] init];
     self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.viewController];
 
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+
+    // we cannot use `-[UIWindow makeKeyAndVisible:]` on test environment.
+    [self.window addSubview:self.navigationController.view];
+
     self.editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit
                                                                     target:nil
                                                                     action:nil];
     self.doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
                                                                     target:nil
                                                                     action:nil];
+
+    UIView *customView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+    customView.backgroundColor = [UIColor redColor];
+    self.customButton = [[UIBarButtonItem alloc] initWithCustomView:customView];
 }
 
 - (void)tearDown
 {
-    [UINavigationItem restoreSystemMargin];
-    [UINavigationItem setMargin:0];
+    self.navigationController.navigationItem.leftMargin = [UINavigationItem systemMargin];
+    self.navigationController.navigationItem.rightMargin = [UINavigationItem systemMargin];
     [super tearDown];
 }
 
 
-#pragma mark - System Margin
+#pragma mark -
 
-- (void)testRemoveSystemMargin
+CGRect relativeRect(UIBarButtonItem *barButtonItem)
 {
-    [UINavigationItem removeSystemMargin];
-    self.viewController.navigationItem.leftBarButtonItem = self.editButton;
-    UIButton *button = [self.editButton valueForKey:@"view"];
-    XCTAssert(CGRectGetMinX(button.frame) == -16);
+    UIButton *button = [barButtonItem valueForKey:@"view"];
+    return [button.superview convertRect:button.frame fromView:button.superview];
+}
+
+CGFloat left(UIBarButtonItem *barButtonItem)
+{
+    return CGRectGetMinX(relativeRect(barButtonItem));
+}
+
+CGFloat right(UIBarButtonItem *barButtonItem)
+{
+    UIButton *button = [barButtonItem valueForKey:@"view"];
+    return CGRectGetWidth(button.superview.bounds) - CGRectGetMaxX(relativeRect(barButtonItem));
 }
 
 
-#pragma mark - Left
-
-- (void)testLeftBarButtonItemPosition
-{
-    [UINavigationItem setMargin:-16];
-    self.viewController.navigationItem.leftBarButtonItem = self.editButton;
-    UIButton *button = [self.editButton valueForKey:@"view"];
-    XCTAssert(CGRectGetMinX(button.frame) == -16);
-}
+#pragma mark - Get/Set Items
 
 - (void)testLeftSetItemGetItem
 {
@@ -118,17 +130,6 @@
     XCTAssertNil(self.viewController.navigationItem.leftBarButtonItem);
 }
 
-
-#pragma mark - Right
-
-- (void)testRightBarButtonItemPosition
-{
-    [UINavigationItem setMargin:-16];
-    self.viewController.navigationItem.rightBarButtonItem = self.editButton;
-    UIButton *button = [self.editButton valueForKey:@"view"];
-    XCTAssert(CGRectGetMaxX(button.frame) == CGRectGetMaxX(self.navigationController.navigationBar.frame) + 16);
-}
-
 - (void)testRightSetItemGetItem
 {
     self.viewController.navigationItem.rightBarButtonItem = self.editButton;
@@ -163,6 +164,81 @@
 {
     self.viewController.navigationItem.rightBarButtonItems = @[];
     XCTAssertNil(self.viewController.navigationItem.rightBarButtonItem);
+}
+
+
+#pragma mark - Default Margin
+
+- (void)testDefaultLeftMargin
+{
+    XCTAssertEqual(self.viewController.navigationItem.leftMargin, [UINavigationItem systemMargin]);
+}
+
+- (void)testDefaultRightMargin
+{
+    XCTAssertEqual(self.viewController.navigationItem.rightMargin, [UINavigationItem systemMargin]);
+}
+
+
+#pragma mark - UINavigationItem
+
+- (void)testLeftMargin_UINavigationItem
+{
+    self.viewController.navigationItem.leftMargin = 10;
+    self.viewController.navigationItem.leftBarButtonItem = self.editButton;
+    XCTAssertEqual(left(self.viewController.navigationItem.leftBarButtonItem), 10);
+}
+
+- (void)testRightMargin_UINavigationItem
+{
+    self.viewController.navigationItem.rightMargin = 11;
+    self.viewController.navigationItem.rightBarButtonItem = self.doneButton;
+    XCTAssertEqual(right(self.viewController.navigationItem.rightBarButtonItem), 11);
+}
+
+- (void)testLeftMargin_UINavigationItem_later
+{
+    self.viewController.navigationItem.leftBarButtonItem = self.editButton;
+    self.viewController.navigationItem.leftMargin = 12;
+    XCTAssertEqual(left(self.viewController.navigationItem.leftBarButtonItem), 12);
+}
+
+- (void)testRightMargin_UINavigationItem_later
+{
+    self.viewController.navigationItem.rightMargin = 13;
+    self.viewController.navigationItem.rightBarButtonItem = self.doneButton;
+    XCTAssertEqual(right(self.viewController.navigationItem.rightBarButtonItem), 13);
+}
+
+
+#pragma mark - Custom View
+
+- (void)testLeftMargin_customView
+{
+    self.viewController.navigationItem.leftMargin = 10;
+    self.viewController.navigationItem.leftBarButtonItem = self.customButton;
+    XCTAssertEqual(left(self.viewController.navigationItem.leftBarButtonItem), 10);
+}
+
+- (void)testRightMargin_customView
+{
+    self.viewController.navigationItem.rightMargin = 10;
+    self.viewController.navigationItem.rightBarButtonItem = self.customButton;
+    XCTAssertEqual(right(self.viewController.navigationItem.rightBarButtonItem), 10);
+}
+
+- (void)testLeftMargin_customView_later
+{
+    self.viewController.navigationItem.leftBarButtonItem = self.customButton;
+    self.viewController.navigationItem.leftMargin = 10;
+    XCTAssertEqual(left(self.viewController.navigationItem.leftBarButtonItem), 10);
+}
+
+- (void)testRightMargin_customView_later
+{
+    self.viewController.navigationItem.rightBarButtonItem = self.customButton;
+    self.viewController.navigationItem.rightMargin = 10;
+    XCTAssertEqual(right(self.viewController.navigationItem.rightBarButtonItem), 10);
 }
 
 @end

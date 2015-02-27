@@ -29,12 +29,9 @@ FOUNDATION_EXPORT const unsigned char UINavigationItem_MarginVersionString[];
 
 @interface UINavigationItem (Margin)
 
-+ (CGFloat)systemMargin;
-+ (void)removeSystemMargin;
-+ (void)restoreSystemMargin;
-+ (BOOL)systemMarginRemoved;
+@property (nonatomic, assign) CGFloat leftMargin;
+@property (nonatomic, assign) CGFloat rightMargin;
 
-+ (CGFloat)margin;
-+ (void)setMargin:(CGFloat)margin;
++ (CGFloat)systemMargin;
 
 @end

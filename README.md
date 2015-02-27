@@ -7,35 +7,43 @@ UINavigationItem+Margin
 Margin for UINavigationItem.
 
 
-At a Glance
------------
+Setting Margins
+---------------
 
-In your `AppDelegate.m` (or anywhere you want to use it):
+Just set `leftMargin` and `rightMargin` of your UINavigationItem.
 
 ```objc
-[UINavigationItem setMargin:-16];
+navigationItem.leftMargin = 0;
+navigationItem.rightMargin = 0;
 ```
 
-![](https://cloud.githubusercontent.com/assets/931655/5898748/e1d333a0-a595-11e4-85a3-9a492d1d38fc.png)
+![zero](https://cloud.githubusercontent.com/assets/931655/5898748/e1d333a0-a595-11e4-85a3-9a492d1d38fc.png)
 
 Wow, margin has disappeared.
 
-If you don't like magic number such as `-16`, you can use `removeSystemMargin` for the same result:
+Even you can do this:
 
 ```objc
-[UINavigationItem removeSystemMargin]; // -16 in iOS 7
+navigationItem.leftMargin = 50;
+navigationItem.rightMargin = 20;
 ```
 
-You can use both of them:
+![ugly](https://cloud.githubusercontent.com/assets/931655/6410361/12d1c69e-beb2-11e4-9cf6-7f7d9469ef09.png)
+
+Looks ugly but works.
+
+
+System Margins
+--------------
+
+Want to restore margins? Use `[UINavigationItem systemMargin]`.
 
 ```objc
-[UINavigationItem removeSystemMargin];
-[UINavigationItem setMargin:12];
+navigationItem.leftMargin = [UINavigationItem systemMargin]; // 16 on iOS 7+
+navigationItem.rightMargin = [UINavigationItem systemMargin];
 ```
 
-![](https://cloud.githubusercontent.com/assets/931655/5898749/e1d72cc6-a595-11e4-84b7-e7fd3e116567.png)
-
-Awesome, looks great.
+![system](https://cloud.githubusercontent.com/assets/931655/6410333/d42763d6-beb1-11e4-845e-34002d336034.png)
 
 
 Installation
@@ -53,4 +61,4 @@ pod 'UINavigationItem+Margin'
 License
 -------
 
-UINavigationItem+Margin is under MIT license. See the LICENSE file for more info.
+**UINavigationItem+Margin** is under MIT license. See the LICENSE file for more info.
