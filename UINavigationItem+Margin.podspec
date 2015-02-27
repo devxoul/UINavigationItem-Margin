@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'UINavigationItem+Margin'
-  s.version          = '1.0.1'
+  s.version          = '2.0.0'
   s.summary          = 'Margin for UINavigationItem.'
   s.homepage         = 'https://github.com/devxoul/UINavigationItem-Margin'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
