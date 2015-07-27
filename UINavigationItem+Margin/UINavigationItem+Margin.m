@@ -117,7 +117,12 @@
 
 - (NSArray *)originalLeftBarButtonItems
 {
-    return objc_getAssociatedObject(self, @selector(originalLeftBarButtonItems));
+    NSArray *items = objc_getAssociatedObject(self, @selector(originalLeftBarButtonItems));
+    if (!items) {
+        items = [self swizzled_leftBarButtonItems];
+        self.originalLeftBarButtonItems = items;
+    }
+    return items;
 }
 
 - (void)setOriginalLeftBarButtonItems:(NSArray *)items
@@ -127,7 +132,12 @@
 
 - (NSArray *)originalRightBarButtonItems
 {
-    return objc_getAssociatedObject(self, @selector(originalRightBarButtonItems));
+    NSArray *items = objc_getAssociatedObject(self, @selector(originalRightBarButtonItems));
+    if (!items) {
+        items = [self swizzled_rightBarButtonItems];
+        self.originalRightBarButtonItems = items;
+    }
+    return items;
 }
 
 - (void)setOriginalRightBarButtonItems:(NSArray *)items
