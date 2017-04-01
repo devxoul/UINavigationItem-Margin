@@ -69,8 +69,14 @@
     UIBarButtonSystemItem type = UIBarButtonSystemItemFixedSpace;
     UIBarButtonItem *spacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:type target:self action:nil];
     spacer.width = margin - [self.class systemMargin];
-    if (!item.customView) {
-        spacer.width += 8; // a margin of private class `UINavigationButton` is different from custom view
+
+    CGFloat screenWidth = UIScreen.mainScreen.bounds.size.width;
+
+    // a margin of private class `UINavigationButton` is different from custom view
+    if (!item.customView && screenWidth < 375) { // 3.5 and 4 inch
+        spacer.width += 8;
+    } else if (screenWidth >= 414) { // 5.5 inch
+        spacer.width -= 4;
     }
     return spacer;
 }
