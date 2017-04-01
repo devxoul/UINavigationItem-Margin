@@ -217,7 +217,7 @@
         [self swizzled_setRightBarButtonItems:itemsWithMargin animated:animated];
     } else {
         self.originalRightBarButtonItems = nil;
-        [self swizzled_setRightBarButtonItem:nil animated:animated];
+        [self swizzled_setRightBarButtonItems:nil animated:animated];
     }
 }
 
