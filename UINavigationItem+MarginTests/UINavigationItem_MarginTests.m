@@ -124,6 +124,20 @@ CGFloat right(UIBarButtonItem *barButtonItem)
     XCTAssertNil(self.viewController.navigationItem.leftBarButtonItem);
 }
 
+- (void)testLeftSetNilAfterSetItem
+{
+    self.viewController.navigationItem.leftBarButtonItem = self.editButton;
+    self.viewController.navigationItem.leftBarButtonItem = nil;
+    XCTAssertNil(self.viewController.navigationItem.leftBarButtonItem);
+}
+
+- (void)testLeftSetNilAfterSetItems
+{
+    self.viewController.navigationItem.leftBarButtonItems = @[self.editButton, self.doneButton];
+    self.viewController.navigationItem.leftBarButtonItem = nil;
+    XCTAssertNil(self.viewController.navigationItem.leftBarButtonItem);
+}
+
 - (void)testLeftSetEmptyItems
 {
     self.viewController.navigationItem.leftBarButtonItems = @[];
@@ -156,6 +170,20 @@ CGFloat right(UIBarButtonItem *barButtonItem)
 
 - (void)testRightSetNil
 {
+    self.viewController.navigationItem.rightBarButtonItem = nil;
+    XCTAssertNil(self.viewController.navigationItem.rightBarButtonItem);
+}
+
+- (void)testRightSetNilAfterSetItem
+{
+    self.viewController.navigationItem.rightBarButtonItem = self.doneButton;
+    self.viewController.navigationItem.rightBarButtonItem = nil;
+    XCTAssertNil(self.viewController.navigationItem.rightBarButtonItem);
+}
+
+- (void)testRightSetNilAfterSetItems
+{
+    self.viewController.navigationItem.rightBarButtonItems = @[self.editButton, self.doneButton];
     self.viewController.navigationItem.rightBarButtonItem = nil;
     XCTAssertNil(self.viewController.navigationItem.rightBarButtonItem);
 }
