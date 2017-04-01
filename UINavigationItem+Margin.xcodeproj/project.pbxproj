@@ -21,6 +21,7 @@
 		0344E3071A76497D0099CB48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0344E3081A76497D0099CB48 /* UINavigationItem_MarginTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UINavigationItem_MarginTests.m; sourceTree = "<group>"; };
 		0344E3121A7649CE0099CB48 /* UINavigationItem+Margin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationItem+Margin.m"; sourceTree = "<group>"; };
+		035A06551E903C0400C4680A /* UINavigation+Margin.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = "UINavigation+Margin.modulemap"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				0344E2FA1A76497D0099CB48 /* Info.plist */,
+				035A06551E903C0400C4680A /* UINavigation+Margin.modulemap */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -310,6 +312,7 @@
 				INFOPLIST_FILE = "UINavigationItem+Margin/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "UINavigationItem+Margin/UINavigation+Margin.modulemap";
 				PRODUCT_NAME = UINavigationItem_Margin;
 				SKIP_INSTALL = YES;
 			};
@@ -325,6 +328,7 @@
 				INFOPLIST_FILE = "UINavigationItem+Margin/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "UINavigationItem+Margin/UINavigation+Margin.modulemap";
 				PRODUCT_NAME = UINavigationItem_Margin;
 				SKIP_INSTALL = YES;
 			};

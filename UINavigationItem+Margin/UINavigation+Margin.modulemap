@@ -1,0 +1,6 @@
+framework module UINavigationItem_Margin {
+  umbrella header "UINavigationItem+Margin.h"
+
+  export *
+  module * { export * }
+}
