@@ -5,10 +5,13 @@ sudo: false
 env:
   global:
     - PROJECT="UINavigationItem+Margin.xcodeproj"
-    - IOS_SDK="iphonesimulator10.3"
-    - IOS_DESTINATION="platform=iOS Simulator,name=iPhone 7,OS=10.3"
+    - SCHEME="UINavigationItem+Margin"
+    - SDK="iphonesimulator10.3"
+    - ACTION="test"
   matrix:
-    - SCHEME="UINavigationItem+Margin"        SDK="$IOS_SDK"      ACTION="test"
+    - IOS_DESTINATION="platform=iOS Simulator,name=iPhone 5S,OS=10.3"
+    - IOS_DESTINATION="platform=iOS Simulator,name=iPhone 6S,OS=10.3"
+    - IOS_DESTINATION="platform=iOS Simulator,name=iPhone 7 Plus,OS=10.3"
 
 script:
   - set -o pipefail && xcodebuild clean $ACTION -project "$PROJECT" -scheme "$SCHEME" -sdk "$SDK" -destination "$IOS_DESTINATION" -configuration Debug CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcpretty -c
