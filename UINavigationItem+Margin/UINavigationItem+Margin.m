@@ -199,7 +199,7 @@
         [self swizzled_setLeftBarButtonItems:itemsWithMargin animated:animated];
     } else {
         self.originalLeftBarButtonItems = nil;
-        [self swizzled_setLeftBarButtonItem:nil animated:animated];
+        [self swizzled_setLeftBarButtonItems:nil animated:animated];
     }
 }
 
@@ -217,7 +217,7 @@
         [self swizzled_setRightBarButtonItems:itemsWithMargin animated:animated];
     } else {
         self.originalRightBarButtonItems = nil;
-        [self swizzled_setRightBarButtonItem:nil animated:animated];
+        [self swizzled_setRightBarButtonItems:nil animated:animated];
     }
 }
 
