@@ -25,34 +25,24 @@
 #import <objc/runtime.h>
 
 #import "UINavigationItem+Margin.h"
+#import "Swizzle.h"
 
 @implementation UINavigationItem (Margin)
 
 + (void)load
 {
     // left
-    [self swizzle:@selector(leftBarButtonItem)];
-    [self swizzle:@selector(setLeftBarButtonItem:animated:)];
-    [self swizzle:@selector(leftBarButtonItems)];
-    [self swizzle:@selector(setLeftBarButtonItems:animated:)];
+    _navigationitem_margin_swizzle_self(self, @"leftBarButtonItem");
+    _navigationitem_margin_swizzle_self(self, @"setLeftBarButtonItem:animated:");
+    _navigationitem_margin_swizzle_self(self, @"leftBarButtonItems");
+    _navigationitem_margin_swizzle_self(self, @"setLeftBarButtonItems:animated:");
 
     // right
-    [self swizzle:@selector(rightBarButtonItem)];
-    [self swizzle:@selector(setRightBarButtonItem:animated:)];
-    [self swizzle:@selector(rightBarButtonItems)];
-    [self swizzle:@selector(setRightBarButtonItems:animated:)];
+    _navigationitem_margin_swizzle_self(self, @"rightBarButtonItem");
+    _navigationitem_margin_swizzle_self(self, @"setRightBarButtonItem:animated:");
+    _navigationitem_margin_swizzle_self(self, @"rightBarButtonItems");
+    _navigationitem_margin_swizzle_self(self, @"setRightBarButtonItems:animated:");
 }
-
-+ (void)swizzle:(SEL)selector
-{
-    NSString *name = [NSString stringWithFormat:@"swizzled_%@", NSStringFromSelector(selector)];
-
-    Method m1 = class_getInstanceMethod(self, selector);
-    Method m2 = class_getInstanceMethod(self, NSSelectorFromString(name));
-
-    method_exchangeImplementations(m1, m2);
-}
-
 
 #pragma mark - Global
 
@@ -125,7 +115,7 @@
 {
     NSArray *items = objc_getAssociatedObject(self, @selector(originalLeftBarButtonItems));
     if (!items) {
-        items = [self swizzled_leftBarButtonItems];
+        items = [self _navigationitem_margin_leftBarButtonItems];
         self.originalLeftBarButtonItems = items;
     }
     return items;
@@ -140,7 +130,7 @@
 {
     NSArray *items = objc_getAssociatedObject(self, @selector(originalRightBarButtonItems));
     if (!items) {
-        items = [self swizzled_rightBarButtonItems];
+        items = [self _navigationitem_margin_rightBarButtonItems];
         self.originalRightBarButtonItems = items;
     }
     return items;
@@ -154,12 +144,12 @@
 
 #pragma mark - Bar Button Item
 
-- (UIBarButtonItem *)swizzled_leftBarButtonItem
+- (UIBarButtonItem *)_navigationitem_margin_leftBarButtonItem
 {
     return self.originalLeftBarButtonItems.firstObject;
 }
 
-- (void)swizzled_setLeftBarButtonItem:(UIBarButtonItem *)item animated:(BOOL)animated
+- (void)_navigationitem_margin_setLeftBarButtonItem:(UIBarButtonItem *)item animated:(BOOL)animated
 {
     if (!item) {
         [self setLeftBarButtonItems:nil animated:animated];
@@ -168,12 +158,12 @@
     }
 }
 
-- (UIBarButtonItem *)swizzled_rightBarButtonItem
+- (UIBarButtonItem *)_navigationitem_margin_rightBarButtonItem
 {
     return self.originalRightBarButtonItems.firstObject;
 }
 
-- (void)swizzled_setRightBarButtonItem:(UIBarButtonItem *)item animated:(BOOL)animated
+- (void)_navigationitem_margin_setRightBarButtonItem:(UIBarButtonItem *)item animated:(BOOL)animated
 {
     if (!item) {
         [self setRightBarButtonItems:nil animated:animated];
@@ -185,39 +175,39 @@
 
 #pragma mark - Bar Button Items
 
-- (NSArray *)swizzled_leftBarButtonItems
+- (NSArray *)_navigationitem_margin_leftBarButtonItems
 {
     return self.originalLeftBarButtonItems;
 }
 
-- (void)swizzled_setLeftBarButtonItems:(NSArray *)items animated:(BOOL)animated
+- (void)_navigationitem_margin_setLeftBarButtonItems:(NSArray *)items animated:(BOOL)animated
 {
     if (items.count) {
         self.originalLeftBarButtonItems = items;
         UIBarButtonItem *spacer = [self leftSpacerForItem:items.firstObject];
         NSArray *itemsWithMargin = [@[spacer] arrayByAddingObjectsFromArray:items];
-        [self swizzled_setLeftBarButtonItems:itemsWithMargin animated:animated];
+        [self _navigationitem_margin_setLeftBarButtonItems:itemsWithMargin animated:animated];
     } else {
         self.originalLeftBarButtonItems = nil;
-        [self swizzled_setLeftBarButtonItems:nil animated:animated];
+        [self _navigationitem_margin_setLeftBarButtonItems:nil animated:animated];
     }
 }
 
-- (NSArray *)swizzled_rightBarButtonItems
+- (NSArray *)_navigationitem_margin_rightBarButtonItems
 {
     return self.originalRightBarButtonItems;
 }
 
-- (void)swizzled_setRightBarButtonItems:(NSArray *)items animated:(BOOL)animated
+- (void)_navigationitem_margin_setRightBarButtonItems:(NSArray *)items animated:(BOOL)animated
 {
     if (items.count) {
         self.originalRightBarButtonItems = items;
         UIBarButtonItem *spacer = [self rightSpacerForItem:items.firstObject];
         NSArray *itemsWithMargin = [@[spacer] arrayByAddingObjectsFromArray:items];
-        [self swizzled_setRightBarButtonItems:itemsWithMargin animated:animated];
+        [self _navigationitem_margin_setRightBarButtonItems:itemsWithMargin animated:animated];
     } else {
         self.originalRightBarButtonItems = nil;
-        [self swizzled_setRightBarButtonItems:nil animated:animated];
+        [self _navigationitem_margin_setRightBarButtonItems:nil animated:animated];
     }
 }
 
