@@ -74,21 +74,49 @@
 
 #pragma mark -
 
+UIView *rootViewOf(UIView *subview)
+{
+    UIView *rootView = subview;
+    while (rootView.superview != nil) {
+        if ([rootView.superview isKindOfClass:UINavigationBar.class]) {
+            return rootView.superview;
+        }
+        rootView = rootView.superview;
+    }
+    return rootView;
+}
+
 CGRect relativeRect(UIBarButtonItem *barButtonItem)
 {
     UIButton *button = [barButtonItem valueForKey:@"view"];
-    return [button.superview convertRect:button.frame fromView:button.superview];
+    UIView *rootView = rootViewOf(button);
+    return [rootView convertRect:button.frame fromView:button.superview];
 }
 
 CGFloat left(UIBarButtonItem *barButtonItem)
 {
-    return CGRectGetMinX(relativeRect(barButtonItem));
+    return ceil(CGRectGetMinX(relativeRect(barButtonItem)));
 }
 
 CGFloat right(UIBarButtonItem *barButtonItem)
 {
     UIButton *button = [barButtonItem valueForKey:@"view"];
-    return CGRectGetWidth(button.superview.bounds) - CGRectGetMaxX(relativeRect(barButtonItem));
+    UIView *rootView = rootViewOf(button);
+    return ceil(CGRectGetWidth(rootView.bounds) - CGRectGetMaxX(relativeRect(barButtonItem)));
+}
+
+void perform(id object, NSString *selectorName)
+{
+    SEL selector = NSSelectorFromString(selectorName);
+    IMP imp = [object methodForSelector:selector];
+    void (*func)(id, SEL) = (void *)imp;
+    func(object, selector);
+}
+
+- (void)layout
+{
+    [self.navigationController.view setNeedsLayout];
+    [self.navigationController.view layoutIfNeeded];
 }
 
 
@@ -214,6 +242,7 @@ CGFloat right(UIBarButtonItem *barButtonItem)
 {
     self.viewController.navigationItem.leftMargin = 10;
     self.viewController.navigationItem.leftBarButtonItem = self.editButton;
+    [self layout];
     XCTAssertEqual(left(self.viewController.navigationItem.leftBarButtonItem), 10);
 }
 
@@ -221,6 +250,7 @@ CGFloat right(UIBarButtonItem *barButtonItem)
 {
     self.viewController.navigationItem.rightMargin = 11;
     self.viewController.navigationItem.rightBarButtonItem = self.doneButton;
+    [self layout];
     XCTAssertEqual(right(self.viewController.navigationItem.rightBarButtonItem), 11);
 }
 
@@ -228,6 +258,7 @@ CGFloat right(UIBarButtonItem *barButtonItem)
 {
     self.viewController.navigationItem.leftBarButtonItem = self.editButton;
     self.viewController.navigationItem.leftMargin = 12;
+    [self layout];
     XCTAssertEqual(left(self.viewController.navigationItem.leftBarButtonItem), 12);
 }
 
@@ -235,6 +266,7 @@ CGFloat right(UIBarButtonItem *barButtonItem)
 {
     self.viewController.navigationItem.rightMargin = 13;
     self.viewController.navigationItem.rightBarButtonItem = self.doneButton;
+    [self layout];
     XCTAssertEqual(right(self.viewController.navigationItem.rightBarButtonItem), 13);
 }
 
@@ -245,6 +277,7 @@ CGFloat right(UIBarButtonItem *barButtonItem)
 {
     self.viewController.navigationItem.leftMargin = 10;
     self.viewController.navigationItem.leftBarButtonItem = self.customButton;
+    [self layout];
     XCTAssertEqual(left(self.viewController.navigationItem.leftBarButtonItem), 10);
 }
 
@@ -252,6 +285,7 @@ CGFloat right(UIBarButtonItem *barButtonItem)
 {
     self.viewController.navigationItem.rightMargin = 10;
     self.viewController.navigationItem.rightBarButtonItem = self.customButton;
+    [self layout];
     XCTAssertEqual(right(self.viewController.navigationItem.rightBarButtonItem), 10);
 }
 
@@ -259,6 +293,7 @@ CGFloat right(UIBarButtonItem *barButtonItem)
 {
     self.viewController.navigationItem.leftBarButtonItem = self.customButton;
     self.viewController.navigationItem.leftMargin = 10;
+    [self layout];
     XCTAssertEqual(left(self.viewController.navigationItem.leftBarButtonItem), 10);
 }
 
@@ -266,6 +301,7 @@ CGFloat right(UIBarButtonItem *barButtonItem)
 {
     self.viewController.navigationItem.rightBarButtonItem = self.customButton;
     self.viewController.navigationItem.rightMargin = 10;
+    [self layout];
     XCTAssertEqual(right(self.viewController.navigationItem.rightBarButtonItem), 10);
 }
 
