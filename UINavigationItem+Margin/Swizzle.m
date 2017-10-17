@@ -26,3 +26,26 @@ void _navigationitem_margin_swizzle(Class oldClass, NSString *oldSelectorName, C
     _navigationitem_margin_swizzle_full(oldClass, oldSelectorName, newClass, newSelectorName);
 }
 
+void _swizzleUINavigationBarContentView() {
+    Class class = NSClassFromString(@"_UINavigationBarContentView");
+    if (!class) {
+        return;
+    }
+    _navigationitem_margin_swizzle(class, @"layoutSubviews", NSObject.class);
+}
+
+void _swizzleUINavigationBarContentViewLayout() {
+    Class class = NSClassFromString(@"_UINavigationBarContentViewLayout");
+    if (!class) {
+        return;
+    }
+    _navigationitem_margin_swizzle(class, @"_updateMarginConstraints", NSObject.class);
+}
+
+void swizzleUINavigationBarContentViewIfNeeded() {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _swizzleUINavigationBarContentView();
+        _swizzleUINavigationBarContentViewLayout();
+    });
+}
