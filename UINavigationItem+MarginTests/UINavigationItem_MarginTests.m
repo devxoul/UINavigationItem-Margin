@@ -24,7 +24,7 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
-#import "UINavigationItem+Margin.h"
+#import <UINavigationItem_Margin/UINavigationItem+Margin.h>
 
 @interface UINavigationItem_MarginTests : XCTestCase
 

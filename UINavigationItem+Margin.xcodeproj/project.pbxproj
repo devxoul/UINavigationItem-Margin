@@ -10,7 +10,6 @@
 		0344E2FC1A76497D0099CB48 /* UINavigationItem+Margin.h in Headers */ = {isa = PBXBuildFile; fileRef = 0344E2FB1A76497D0099CB48 /* UINavigationItem+Margin.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0344E3091A76497D0099CB48 /* UINavigationItem_MarginTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0344E3081A76497D0099CB48 /* UINavigationItem_MarginTests.m */; };
 		0344E3131A7649CE0099CB48 /* UINavigationItem+Margin.m in Sources */ = {isa = PBXBuildFile; fileRef = 0344E3121A7649CE0099CB48 /* UINavigationItem+Margin.m */; };
-		0344E3171A7652820099CB48 /* UINavigationItem+Margin.m in Sources */ = {isa = PBXBuildFile; fileRef = 0344E3121A7649CE0099CB48 /* UINavigationItem+Margin.m */; };
 		035A065D1E903C7800C4680A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035A065C1E903C7800C4680A /* AppDelegate.swift */; };
 		035A065F1E903C7800C4680A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035A065E1E903C7800C4680A /* ViewController.swift */; };
 		035A06621E903C7800C4680A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 035A06601E903C7800C4680A /* Main.storyboard */; };
@@ -23,10 +22,18 @@
 		03A5A97B1F95E90F002357EF /* UINavigationBarContentViewLayout+Margin.m in Sources */ = {isa = PBXBuildFile; fileRef = 03A5A9791F95E90E002357EF /* UINavigationBarContentViewLayout+Margin.m */; };
 		03A5A97E1F95E9CB002357EF /* Swizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 03A5A97D1F95E9CB002357EF /* Swizzle.m */; };
 		03A5A97F1F95EAE6002357EF /* Swizzle.h in Headers */ = {isa = PBXBuildFile; fileRef = 03A5A97C1F95E99A002357EF /* Swizzle.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		03A5A9951F96234D002357EF /* UINavigationItem_Margin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0344E2F61A76497D0099CB48 /* UINavigationItem_Margin.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		035A066E1E903CA000C4680A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0344E2ED1A76497D0099CB48 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0344E2F51A76497D0099CB48;
+			remoteInfo = "UINavigationItem+Margin";
+		};
+		03A5A9921F96230D002357EF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0344E2ED1A76497D0099CB48 /* Project object */;
 			proxyType = 1;
@@ -85,6 +92,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03A5A9951F96234D002357EF /* UINavigationItem_Margin.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -106,6 +114,7 @@
 				0344E3051A76497D0099CB48 /* UINavigationItem+MarginTests */,
 				035A065B1E903C7800C4680A /* Example */,
 				0344E2F71A76497D0099CB48 /* Products */,
+				03A5A9941F96234D002357EF /* Frameworks */,
 			);
 			indentWidth = 4;
 			sourceTree = "<group>";
@@ -176,6 +185,13 @@
 			path = Example;
 			sourceTree = "<group>";
 		};
+		03A5A9941F96234D002357EF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -221,6 +237,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				03A5A9931F96230D002357EF /* PBXTargetDependency */,
 			);
 			name = "UINavigationItem+MarginTests";
 			productName = "UINavigationItem+MarginTests";
@@ -331,7 +348,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0344E3171A7652820099CB48 /* UINavigationItem+Margin.m in Sources */,
 				0344E3091A76497D0099CB48 /* UINavigationItem_MarginTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -352,6 +368,11 @@
 			isa = PBXTargetDependency;
 			target = 0344E2F51A76497D0099CB48 /* UINavigationItem+Margin */;
 			targetProxy = 035A066E1E903CA000C4680A /* PBXContainerItemProxy */;
+		};
+		03A5A9931F96230D002357EF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0344E2F51A76497D0099CB48 /* UINavigationItem+Margin */;
+			targetProxy = 03A5A9921F96230D002357EF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
