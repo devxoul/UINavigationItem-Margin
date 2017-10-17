@@ -96,7 +96,9 @@
 				035A065B1E903C7800C4680A /* Example */,
 				0344E2F71A76497D0099CB48 /* Products */,
 			);
+			indentWidth = 4;
 			sourceTree = "<group>";
+			tabWidth = 4;
 		};
 		0344E2F71A76497D0099CB48 /* Products */ = {
 			isa = PBXGroup;
