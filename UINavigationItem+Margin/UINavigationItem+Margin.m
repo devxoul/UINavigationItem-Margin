@@ -29,8 +29,7 @@
 
 @implementation UINavigationItem (Margin)
 
-+ (void)load
-{
++ (void)load {
     // left
     _navigationitem_margin_swizzle_self(self, @"leftBarButtonItem");
     _navigationitem_margin_swizzle_self(self, @"setLeftBarButtonItem:animated:");
@@ -46,16 +45,14 @@
 
 #pragma mark - Global
 
-+ (CGFloat)systemMargin
-{
++ (CGFloat)systemMargin {
     return 16; // iOS 7+
 }
 
 
 #pragma mark - Spacer
 
-- (UIBarButtonItem *)spacerForItem:(UIBarButtonItem *)item withMargin:(CGFloat)margin
-{
+- (UIBarButtonItem *)spacerForItem:(UIBarButtonItem *)item withMargin:(CGFloat)margin {
     UIBarButtonSystemItem type = UIBarButtonSystemItemFixedSpace;
     UIBarButtonItem *spacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:type target:self action:nil];
     spacer.width = margin - [self.class systemMargin];
@@ -71,39 +68,33 @@
     return spacer;
 }
 
-- (UIBarButtonItem *)leftSpacerForItem:(UIBarButtonItem *)item
-{
+- (UIBarButtonItem *)leftSpacerForItem:(UIBarButtonItem *)item {
     return [self spacerForItem:item withMargin:self.leftMargin];
 }
 
-- (UIBarButtonItem *)rightSpacerForItem:(UIBarButtonItem *)item
-{
+- (UIBarButtonItem *)rightSpacerForItem:(UIBarButtonItem *)item {
     return [self spacerForItem:item withMargin:self.rightMargin];
 }
 
 
 #pragma mark - Margin
 
-- (CGFloat)leftMargin
-{
+- (CGFloat)leftMargin {
     NSNumber *value = objc_getAssociatedObject(self, @selector(leftMargin));
     return value ? value.floatValue : [self.class systemMargin];
 }
 
-- (void)setLeftMargin:(CGFloat)leftMargin
-{
+- (void)setLeftMargin:(CGFloat)leftMargin {
     objc_setAssociatedObject(self, @selector(leftMargin), @(leftMargin), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     self.leftBarButtonItems = self.leftBarButtonItems;
 }
 
-- (CGFloat)rightMargin
-{
+- (CGFloat)rightMargin {
     NSNumber *value = objc_getAssociatedObject(self, @selector(rightMargin));
     return value ? value.floatValue : [self.class systemMargin];
 }
 
-- (void)setRightMargin:(CGFloat)rightMargin
-{
+- (void)setRightMargin:(CGFloat)rightMargin {
     objc_setAssociatedObject(self, @selector(rightMargin), @(rightMargin), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     self.rightBarButtonItems = self.rightBarButtonItems;
 }
@@ -111,8 +102,7 @@
 
 #pragma mark - Original Bar Button Items
 
-- (NSArray *)originalLeftBarButtonItems
-{
+- (NSArray *)originalLeftBarButtonItems {
     NSArray *items = objc_getAssociatedObject(self, @selector(originalLeftBarButtonItems));
     if (!items) {
         items = [self _navigationitem_margin_leftBarButtonItems];
@@ -121,13 +111,11 @@
     return items;
 }
 
-- (void)setOriginalLeftBarButtonItems:(NSArray *)items
-{
+- (void)setOriginalLeftBarButtonItems:(NSArray *)items {
     objc_setAssociatedObject(self, @selector(originalLeftBarButtonItems), items, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (NSArray *)originalRightBarButtonItems
-{
+- (NSArray *)originalRightBarButtonItems {
     NSArray *items = objc_getAssociatedObject(self, @selector(originalRightBarButtonItems));
     if (!items) {
         items = [self _navigationitem_margin_rightBarButtonItems];
@@ -136,21 +124,18 @@
     return items;
 }
 
-- (void)setOriginalRightBarButtonItems:(NSArray *)items
-{
+- (void)setOriginalRightBarButtonItems:(NSArray *)items {
     objc_setAssociatedObject(self, @selector(originalRightBarButtonItems), items, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 
 #pragma mark - Bar Button Item
 
-- (UIBarButtonItem *)_navigationitem_margin_leftBarButtonItem
-{
+- (UIBarButtonItem *)_navigationitem_margin_leftBarButtonItem {
     return self.originalLeftBarButtonItems.firstObject;
 }
 
-- (void)_navigationitem_margin_setLeftBarButtonItem:(UIBarButtonItem *)item animated:(BOOL)animated
-{
+- (void)_navigationitem_margin_setLeftBarButtonItem:(UIBarButtonItem *)item animated:(BOOL)animated {
     if (!item) {
         [self setLeftBarButtonItems:nil animated:animated];
     } else {
@@ -158,13 +143,11 @@
     }
 }
 
-- (UIBarButtonItem *)_navigationitem_margin_rightBarButtonItem
-{
+- (UIBarButtonItem *)_navigationitem_margin_rightBarButtonItem {
     return self.originalRightBarButtonItems.firstObject;
 }
 
-- (void)_navigationitem_margin_setRightBarButtonItem:(UIBarButtonItem *)item animated:(BOOL)animated
-{
+- (void)_navigationitem_margin_setRightBarButtonItem:(UIBarButtonItem *)item animated:(BOOL)animated {
     if (!item) {
         [self setRightBarButtonItems:nil animated:animated];
     } else {
@@ -175,13 +158,11 @@
 
 #pragma mark - Bar Button Items
 
-- (NSArray *)_navigationitem_margin_leftBarButtonItems
-{
+- (NSArray *)_navigationitem_margin_leftBarButtonItems {
     return self.originalLeftBarButtonItems;
 }
 
-- (void)_navigationitem_margin_setLeftBarButtonItems:(NSArray *)items animated:(BOOL)animated
-{
+- (void)_navigationitem_margin_setLeftBarButtonItems:(NSArray *)items animated:(BOOL)animated {
     if (items.count) {
         self.originalLeftBarButtonItems = items;
         UIBarButtonItem *spacer = [self leftSpacerForItem:items.firstObject];
@@ -193,13 +174,11 @@
     }
 }
 
-- (NSArray *)_navigationitem_margin_rightBarButtonItems
-{
+- (NSArray *)_navigationitem_margin_rightBarButtonItems {
     return self.originalRightBarButtonItems;
 }
 
-- (void)_navigationitem_margin_setRightBarButtonItems:(NSArray *)items animated:(BOOL)animated
-{
+- (void)_navigationitem_margin_setRightBarButtonItems:(NSArray *)items animated:(BOOL)animated {
     if (items.count) {
         self.originalRightBarButtonItems = items;
         UIBarButtonItem *spacer = [self rightSpacerForItem:items.firstObject];
