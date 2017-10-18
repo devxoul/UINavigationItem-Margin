@@ -23,6 +23,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UINavigationBarContentViewLayout+Margin.h"
 
 FOUNDATION_EXPORT double UINavigationItem_MarginVersionNumber;
 FOUNDATION_EXPORT const unsigned char UINavigationItem_MarginVersionString[];
