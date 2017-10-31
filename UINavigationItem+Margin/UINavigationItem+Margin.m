@@ -22,12 +22,24 @@
 // SOFTWARE.
 //
 
+#import <execinfo.h>
 #import <objc/runtime.h>
 
 #import "UINavigationItem+Margin.h"
 #import "Swizzle.h"
 
-#define isCalledFromSystem [NSThread.callStackSymbols[1] containsString:@"UIKit"]
+#define isCalledFromSystem (BOOL)^(void) { \
+    int depth = 3; \
+    void *callstack[depth]; \
+    int frames = backtrace(callstack, depth); \
+    char **symbols = backtrace_symbols(callstack, frames); \
+    int contains = 0; \
+    if (strstr(symbols[depth - 1], "UIKit") != NULL) { \
+        contains = 1; \
+    } \
+    free(symbols); \
+    return contains; \
+}()
 #define iOS11 (BOOL)^(void){ \
     if (@available(iOS 11, *)) { \
         return YES; \
